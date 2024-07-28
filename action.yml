@@ -73,6 +73,8 @@ runs:
         cp -r ./build/* "$TARGET_DIR" || cp -r ./build/* .
         rm -rf build
 
+        ls -A
+        
         git add .
         git commit -m 'Publish build artifacts'
         git push origin $BRANCH_NAME --force
