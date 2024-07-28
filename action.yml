@@ -1,0 +1,15 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and Deploy
+      uses: mmedoo/react-on-pages
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
