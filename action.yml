@@ -1,5 +1,7 @@
 name: Build React on Push
+
 description: 'Build your React App on every push to your main branch and publish it to a branch'
+
 branding:
   icon: 'anchor'
   color: 'gray-dark'
