@@ -1,26 +1,24 @@
 # Build React on Push
 
-This GitHub Action builds your React app on every push and publishes it to a branch named **`build`**. It deletes all files and directories of your app and leaves the content of **`build`** folder in the root directory.
+### This GitHub Action builds your React app on every push and publishes it to a branch and directory of your choice. It deletes all files and directories of your app and leaves the content of your React build in the given directory.
 
 ## Inputs
 
-| Input   | Description                           | Required |
-|---------|---------------------------------------|----------|
-| `GITHUB_TOKEN` | GitHub token for authentication  | Yes      |
+| Input   | Description                           | Required | Default |
+|---------|---------------------------------------|:----------:| :-: |
+| `GITHUB_TOKEN` | GitHub token for authentication  | Yes    | - |
+| `TARGET_DIRECTORY` | Directory in which build files will be placed inside the branch | No | `root`
+| `BRANCH_NAME` | Branch name to which build files will be published | No | `build`
+
+
 
 ## Usage
 
-paste this action to your workflow:
+### paste this action to your workflow:
 
 
 ```yaml
-name: Build React on Push
-
-description: 'Build your React App on every push to your main branch and publish it to a branch'
-
-branding:
-  icon: 'anchor'
-  color: 'gray-dark'
+name: Building App
 
 on:
   push:
@@ -31,9 +29,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Build and Deploy
+    - name: Building App
       uses: mmedoo/build-react-on-push@v1.1
       with:
+
+        # build files directory inside branch.
+        # if it doesn't exist, it will be created.
+        # default: root
+        # TARGET_DIRECTORY: ''
+
+        # branch name, if doesn't exist, it will be created
+        # if it doesn't exist, it will be created.
+        # default: build
+        # BRANCH_NAME: ''
+
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ```
@@ -49,3 +58,11 @@ You can deploy this build to Github Pages by choosing branch **`build`** as your
 3. Set **Deploy from a branch** as your source.
 4. Choose **`build`** as branch and **`root`** as folder.
 
+
+## Configuration
+
+### You can configure these options:
+
+- **`TARGET_DIRECTORY`**: Directory in which build files will be placed inside the branch (default: `root`)
+
+- **`BRANCH_NAME`**: Branch name to which build files will be published (default: `build`)
