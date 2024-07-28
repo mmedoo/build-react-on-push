@@ -71,4 +71,4 @@ You can deploy this build to Github Pages by choosing the branch and directory s
 
 - **`BRANCH_NAME`**: Branch name to which build files will be published (default: `build`)
 
-- **`APP_DIRECTORY`**: Directory of your React app (default: `.`)
+- **`APP_DIRECTORY`**: Directory of your React app (default: `root`)
