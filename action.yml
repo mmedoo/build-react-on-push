@@ -53,8 +53,6 @@ runs:
             rm -rf "$item"
           fi
         done
-
-        ls -A
       
     - name: Publish build artifacts
       shell: bash
@@ -74,8 +72,6 @@ runs:
         
         cp -r ./build/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r ./build/* "$TARGET_DIR"
         rm -rf build
-
-        ls -A
 
         git add "$TARGET_DIR"
         git commit -m 'Publish build artifacts'
