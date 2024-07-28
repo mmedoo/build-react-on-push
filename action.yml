@@ -60,23 +60,14 @@ runs:
         git fetch origin
         
         BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
-        git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
-
         
-        for item in $(ls -A); do
-          if [ "$item" != "build" ] && [ "$item" != ".git" ]; then
-            echo "Removing $item"
-            rm -rf "$item"
-          fi
-        done
+        git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
 
         TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
         
         cp -r ./build/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r ./build/* "$TARGET_DIR"
         rm -rf build
 
-        ls -A
-        
-        git add .
+        git add "$TARGET_DIR"
         git commit -m 'Publish build artifacts'
         git push origin $BRANCH_NAME --force

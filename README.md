@@ -1,6 +1,7 @@
 # Build React on Push
 
-### This GitHub Action builds your React app on every push and publishes it to a branch and directory of your choice. It deletes all files and directories of your app and leaves the content of your React build in the given directory.
+This GitHub Action builds your React app on every push and publishes it to a branch and directory of your choice. This Action ensures that all files and directories surrounding the specified directory are preserved without deletion. It facilitates the seamless publication of your build files to the designated directory.
+
 
 ## Inputs
 
@@ -30,18 +31,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Building App
-      uses: mmedoo/build-react-on-push@v1.1
+      uses: mmedoo/build-react-on-push@v1.3
       with:
 
         # build files directory inside branch.
         # if it doesn't exist, it will be created.
         # default: root
-        # TARGET_DIRECTORY: ''
+        # TARGET_DIRECTORY: '.'
 
         # branch name, if doesn't exist, it will be created
         # if it doesn't exist, it will be created.
         # default: build
-        # BRANCH_NAME: ''
+        # BRANCH_NAME: 'build'
 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -49,14 +50,14 @@ jobs:
 
 ## Github Pages
 
-You can deploy this build to Github Pages by choosing branch **`build`** as your deploying source.
+You can deploy this build to Github Pages by choosing the branch and directory specified in the configuration.
 
 ### Steps
 
 1. Go to this Repository Settings.
-2. From the left bar, Go to Pages.
+2. From the left bar, go to Pages.
 3. Set **Deploy from a branch** as your source.
-4. Choose **`build`** as branch and **`root`** as folder.
+4. Choose the configured branch name and directory as your branch and folder.
 
 
 ## Configuration
