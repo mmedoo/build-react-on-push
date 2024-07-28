@@ -9,7 +9,7 @@ This GitHub Action builds your React app on every push and publishes it to a bra
 | `GITHUB_TOKEN` | GitHub token for authentication  | Yes    | - |
 | `TARGET_DIRECTORY` | Directory in which build files will be placed inside the branch | No | `root`
 | `BRANCH_NAME` | Branch name to which build files will be published | No | `build`
-| `APP_DIRECTORY` | Directory of your React app | No | `.`
+| `APP_DIRECTORY` | Directory of your React app | No | `root`
 
 
 ## Usage
