@@ -1,21 +1,62 @@
-name: Build React on Push
-
-description: 'Build your React App on every push to your main branch and publish it to a branch'
-
-branding:
-  icon: 'anchor'
-  color: 'gray-dark'
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build and Deploy
-      uses: mmedoo/react-on-pages
+name: 'Build and Deploy'
+description: 'A GitHub Action to build and deploy your project'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token for authentication'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Cache npm dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build the project
+      run: |
+        CI=false npm run build
+
+    - name: Check build directory
+      run: |
+        if ! git show-ref --verify --quiet refs/heads/build; then
+          git checkout -b build
+        else
+          echo "Branch 'build' already exists."
+        fi
+        
+    - name: Deploy build artifacts
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      run: |
+      
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git fetch origin
+        git switch build || git switch --orphan build
+
+        
+        for item in $(ls -A); do
+          if [ "$item" != "build" ] && [ "$item" != ".git" ]; then
+            echo "Removing $item"
+            rm -rf "$item"
+          fi
+        done
+        
+        cp -r ./build/* .
+        rm -rf build
+
+        git add .
+        git commit -m 'Deploy build artifacts'
+        git push origin build --force

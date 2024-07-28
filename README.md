@@ -14,7 +14,13 @@ paste this action to your workflow:
 
 
 ```yaml
-name: Build and Deploy
+name: Build React on Push
+
+description: 'Build your React App on every push to your main branch and publish it to a branch'
+
+branding:
+  icon: 'anchor'
+  color: 'gray-dark'
 
 on:
   push:
@@ -26,9 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build and Deploy
-      uses: mmedoo/react-on-pages
+      uses: mmedoo/build-react-on-push@v1.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 ```
 
 ## Github Pages
