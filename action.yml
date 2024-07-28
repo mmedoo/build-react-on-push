@@ -21,13 +21,16 @@ runs:
           ${{ runner.os }}-node-
 
     - name: Install dependencies
+      shell: bash
       run: npm ci
-
+      
     - name: Build the project
+      shell: bash
       run: |
         CI=false npm run build
 
     - name: Check build directory
+      shell: bash
       run: |
         if ! git show-ref --verify --quiet refs/heads/build; then
           git checkout -b build
@@ -36,9 +39,11 @@ runs:
         fi
         
     - name: Deploy build artifacts
+      shell: bash
       if: success()
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+          
       run: |
       
         git config --global user.name 'github-actions[bot]'
