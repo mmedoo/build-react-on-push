@@ -46,7 +46,15 @@ runs:
       shell: bash
       run: |
         CI=false npm run build
-        
+
+        for dir in */
+        do
+          if [ "$dir" != "build/" ] && ["$dir" != ".git/"]
+          then
+            rm -rf "$dir"
+          fi
+        done
+      
     - name: Publish build artifacts
       shell: bash
       if: success()
@@ -55,15 +63,13 @@ runs:
           
       run: |
       
+        BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
+        TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
+
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git fetch origin
-        
-        BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
-        
         git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
-
-        TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
         
         cp -r ./build/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r ./build/* "$TARGET_DIR"
         rm -rf build
