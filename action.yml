@@ -72,7 +72,7 @@ runs:
 
         TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
         
-        cp -r ./build/* "$TARGET_DIR"
+        cp -r ./build/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r ./build/* "$TARGET_DIR"
         rm -rf build
 
         ls -A
