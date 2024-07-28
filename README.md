@@ -1,6 +1,6 @@
 # Build React on Push
 
-This GitHub Action builds your React app on every push and publishes it to a branch named **`build`**. It deletes the whole files and directories of your app and leaves the content of **`build`** folder in the root directory.
+This GitHub Action builds your React app on every push and publishes it to a branch named **`build`**. It deletes all files and directories of your app and leaves the content of **`build`** folder in the root directory.
 
 ## Inputs
 
