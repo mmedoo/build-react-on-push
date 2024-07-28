@@ -1,4 +1,7 @@
 name: 'Build and Deploy'
+branding:
+  color: 'gray-dark'
+  icon: 'anchor'
 description: 'A GitHub Action to build and deploy your project'
 inputs:
   GITHUB_TOKEN:
