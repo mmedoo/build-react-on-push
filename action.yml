@@ -69,8 +69,10 @@ runs:
             rm -rf "$item"
           fi
         done
+
+        TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
         
-        cp -r ./build/* "$TARGET_DIR" || cp -r ./build/* .
+        cp -r ./build/* "$TARGET_DIR"
         rm -rf build
 
         ls -A
