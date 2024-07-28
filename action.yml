@@ -21,7 +21,7 @@ inputs:
     description: 'Branch name to which the build artifacts will be pushed (default is build)'
     required: false
     default: 'build'
-    
+
 runs:
   using: 'composite'
   steps:

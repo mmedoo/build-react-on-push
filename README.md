@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Building App
-      uses: mmedoo/build-react-on-push@v1.3
+      uses: mmedoo/build-react-on-push@v1.0
       with:
 
         # build files directory inside branch.
