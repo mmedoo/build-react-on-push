@@ -11,6 +11,11 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token for authentication'
     required: true
+
+  APP_DIRECTORY:
+    description: 'Directory in which the app is located (default is root)'
+    required: false
+    default: '.'
     
   TARGET_DIRECTORY:
     description: 'Directory in which the files shall be placed (default is root)'
@@ -29,6 +34,10 @@ runs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+      
+    - name: Go to app directory
+    shell: bash
+    run: cd ${{ inputs.APP_DIRECTORY }}
 
     - name: Cache npm dependencies
       uses: actions/cache@v4

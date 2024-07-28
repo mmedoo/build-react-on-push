@@ -1,5 +1,4 @@
 # Build React on Push
-
 This GitHub Action builds your React app on every push and publishes it to a branch and directory of your choice. This Action ensures that all files and directories surrounding the specified directory are preserved without deletion. It facilitates the seamless publication of your build files to the designated directory.
 
 
@@ -10,7 +9,7 @@ This GitHub Action builds your React app on every push and publishes it to a bra
 | `GITHUB_TOKEN` | GitHub token for authentication  | Yes    | - |
 | `TARGET_DIRECTORY` | Directory in which build files will be placed inside the branch | No | `root`
 | `BRANCH_NAME` | Branch name to which build files will be published | No | `build`
-
+| `APP_DIRECTORY` | Directory of your React app | No | `.`
 
 
 ## Usage
@@ -44,6 +43,10 @@ jobs:
         # default: build
         # BRANCH_NAME: 'build'
 
+        # directory of your React app
+        # default: .
+        # APP_DIRECTORY: '.'
+
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ```
@@ -67,3 +70,5 @@ You can deploy this build to Github Pages by choosing the branch and directory s
 - **`TARGET_DIRECTORY`**: Directory in which build files will be placed inside the branch (default: `root`)
 
 - **`BRANCH_NAME`**: Branch name to which build files will be published (default: `build`)
+
+- **`APP_DIRECTORY`**: Directory of your React app (default: `.`)
