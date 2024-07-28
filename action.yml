@@ -36,8 +36,8 @@ runs:
         fetch-depth: 0
       
     - name: Go to app directory
-    shell: bash
-    run: cd ${{ inputs.APP_DIRECTORY }}
+      shell: bash
+      run: cd ${{ inputs.APP_DIRECTORY }}
 
     - name: Cache npm dependencies
       uses: actions/cache@v4
