@@ -1,5 +1,5 @@
 name: Build and Deploy
-
+description: 'Build your React App on every push to your main branch'
 on:
   push:
     branches:
