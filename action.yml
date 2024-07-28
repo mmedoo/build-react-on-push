@@ -1,12 +1,27 @@
-name: 'Build and Deploy'
+name: 'Build and Publish React'
+
 branding:
   color: 'gray-dark'
   icon: 'anchor'
-description: 'A GitHub Action to build and deploy your project'
+  
+description: 'A GitHub Action to build and publish your React App'
+
 inputs:
+
   GITHUB_TOKEN:
     description: 'GitHub token for authentication'
     required: true
+    
+  TARGET_DIRECTORY:
+    description: 'Directory in which the files shall be placed (default is root)'
+    required: false
+    default: '.'
+    
+  BRANCH_NAME:
+    description: 'Branch name to which the build artifacts will be pushed (default is build)'
+    required: false
+    default: 'build'
+    
 runs:
   using: 'composite'
   steps:
@@ -27,21 +42,12 @@ runs:
       shell: bash
       run: npm ci
       
-    - name: Build the project
+    - name: Build the app
       shell: bash
       run: |
         CI=false npm run build
-
-    - name: Check build directory
-      shell: bash
-      run: |
-        if ! git show-ref --verify --quiet refs/heads/build; then
-          git checkout -b build
-        else
-          echo "Branch 'build' already exists."
-        fi
         
-    - name: Deploy build artifacts
+    - name: Publish build artifacts
       shell: bash
       if: success()
       env:
@@ -52,7 +58,9 @@ runs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git fetch origin
-        git switch build || git switch --orphan build
+        
+        BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
+        git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
 
         
         for item in $(ls -A); do
@@ -62,9 +70,9 @@ runs:
           fi
         done
         
-        cp -r ./build/* .
+        cp -r ./build/* "$TARGET_DIR"
         rm -rf build
 
         git add .
-        git commit -m 'Deploy build artifacts'
-        git push origin build --force
+        git commit -m 'Publish build artifacts'
+        git push origin $BRANCH_NAME --force
