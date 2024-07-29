@@ -72,8 +72,6 @@ runs:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
           
       run: |
-        # cd ${{ inputs.APP_DIRECTORY }}
-      
         BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
         TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
         APP_DIR="${{ inputs.APP_DIRECTORY }}"
