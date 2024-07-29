@@ -72,18 +72,19 @@ runs:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
           
       run: |
-        cd ${{ inputs.APP_DIRECTORY }}
+        # cd ${{ inputs.APP_DIRECTORY }}
       
         BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
         TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
-
+        APP_DIR="${{ inputs.APP_DIRECTORY }}"
+        
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git fetch origin
         git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
         
-        cp -r ./build/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r ./build/* "$TARGET_DIR"
-        rm -rf build
+        cp -r "$APP_DIR/build/"* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r "$APP_DIR/build/"* "$TARGET_DIR"
+        rm -rf "$APP_DIR"
 
         git add "$TARGET_DIR"
         git commit -m 'Publish build artifacts'
