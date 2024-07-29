@@ -35,9 +35,6 @@ runs:
       with:
         fetch-depth: 0
       
-    - name: Go to app directory
-      shell: bash
-      run: cd ${{ inputs.APP_DIRECTORY }}
 
     - name: Cache npm dependencies
       uses: actions/cache@v4
@@ -49,11 +46,16 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: npm ci
+      run:|
+        cd ${{ inputs.APP_DIRECTORY }}
+        
+        npm ci
       
     - name: Build the app
       shell: bash
       run: |
+        cd ${{ inputs.APP_DIRECTORY }}
+        
         CI=false npm run build
 
         for item in $(ls -A); do
@@ -70,6 +72,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
           
       run: |
+        cd ${{ inputs.APP_DIRECTORY }}
       
         BRANCH_NAME="${{ inputs.BRANCH_NAME }}"
         TARGET_DIR="${{ inputs.TARGET_DIRECTORY }}"
