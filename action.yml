@@ -84,7 +84,7 @@ runs:
         git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
         
         cp -r "$APP_DIR/build/"* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r "$APP_DIR/build/"* "$TARGET_DIR"
-        rm -rf "$APP_DIR"
+        rm -rf "$APP_DIR" || rm -rf build
 
         git add "$TARGET_DIR"
         git commit -m 'Publish build artifacts'
