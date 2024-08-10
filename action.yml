@@ -86,4 +86,4 @@ runs:
 
         git add "$TARGET_DIR"
         git commit -m 'Publish build artifacts'
-        git push https://x-access-token:${{ inputs.GITHUB_TOKEN }}@github.com/${{ github.repository }} $BRANCH_NAME --force
+        git push https://x-access-token:${{ inputs.GITHUB_TOKEN }}@github.com/${{ github.repository }} $BRANCH_NAME --force || git push $BRANCH_NAME --force
