@@ -10,7 +10,7 @@ This GitHub Action builds your React app on every push and publishes it to a bra
 | `APP_DIRECTORY` | Directory of your React app | No | `root`
 | `BRANCH_NAME` | Branch name to which build files will be published | No | `build`
 | `TARGET_DIRECTORY` | Directory in which build files will be placed inside the branch | No | `root`
-
+| `BUILD_FNAME` | Folder name of build files determined by your building tool | No | `dist`
 
 ## Usage
 
