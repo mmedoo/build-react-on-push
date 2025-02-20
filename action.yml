@@ -64,7 +64,7 @@ runs:
         CI=false npm run build
 
         for item in $(ls -A); do
-          if [ "$item" != "$BUILD_FNAME" ] && [ "$item" != ".git" ]; then
+          if [ "$item" != ${{ inputs.BUILD_FNAME }} ] && [ "$item" != ".git" ]; then
             echo "Removing $item"
             rm -rf "$item"
           fi
