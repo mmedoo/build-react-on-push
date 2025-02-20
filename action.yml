@@ -86,7 +86,7 @@ runs:
         git fetch origin
         git switch $BRANCH_NAME || git switch --orphan $BRANCH_NAME
         
-        cp -r "$APP_DIR/$BUILD_FNAME/"* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r "$APP_DIR/$BUILD_FNAME/"* "$TARGET_DIR"
+        cp -r "$APP_DIR"/"$BUILD_FNAME"/* "$TARGET_DIR" || mkdir -p "$TARGET_DIR" && cp -r "$APP_DIR"/"$BUILD_FNAME"/* "$TARGET_DIR"
         rm -rf "$APP_DIR" || rm -rf "$BUILD_FNAME"
 
         git add "$TARGET_DIR"
